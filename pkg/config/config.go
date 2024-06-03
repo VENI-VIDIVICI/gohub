@@ -115,3 +115,7 @@ func GetBool(path string, defaultValue ...interface{}) bool {
 func GetStringMapString(path string) map[string]string {
 	return viper.GetStringMapString(path)
 }
+
+func GetInt(path string, defaultValue ...interface{}) int {
+	return cast.ToInt(internalGet(path, defaultValue...))
+}

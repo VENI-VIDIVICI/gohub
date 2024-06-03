@@ -18,9 +18,11 @@ func main() {
 	flag.StringVar(&env, "env", "", "加载 .env 文件，如 --env=testing 加载的是 .env.testing 文件")
 	flag.Parse()
 	config.InitConfig(env)
+	bootstrap.SetupDB()
 	// 初始化 Gin 实例
 	router := gin.New()
 	bootstrap.SetupRoute(router)
+	// 初始化 DB
 	// 运行服务
 	err := router.Run(":" + config.Get("app.port"))
 	if err != nil {
