@@ -17,3 +17,5 @@ func IsPhoneExit(phone string) bool {
 	database.DB.Model(User{}).Where("phone = ?", phone).Count(&count)
 	return count > 0
 }
+
+// isEmailExit 判断邮箱是否被注册

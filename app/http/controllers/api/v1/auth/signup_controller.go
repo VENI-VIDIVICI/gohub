@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
 	v1 "github.com/VENI-VIDIVICI/gohub/app/http/controllers/api/v1"
@@ -16,22 +15,25 @@ type SignupController struct {
 
 func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	request := requests.SignupPhoneExistRequest{}
-	if err := c.ShouldBindJSON(&request); err != nil {
-		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"error": err.Error(),
-		})
-		fmt.Println(err.Error())
-		return
-	}
-	errs := requests.ValidateSignupPhoneExist(&request, c)
-	if len(errs) > 0 {
-		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-			"error": errs,
-		})
-		fmt.Println(errs)
+	ok := requests.Validate(c, request, requests.ValidateSignupPhoneExist)
+	if ok == false {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"exist": user.IsPhoneExit(request.Phone),
+	})
+}
+
+func (sc *SignupController) IsEmailExist(c *gin.Context) {
+	request := requests.SignupEmailExistRequest{}
+
+	ok := requests.Validate(c, request, requests.ValidateSignupEmailExist)
+	if ok == false {
+		return
+	}
+
+	//  检查数据库并返回响应
+	c.JSON(http.StatusOK, gin.H{
+		"exist": user.IsEmailExist(request.Email),
 	})
 }
