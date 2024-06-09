@@ -9,10 +9,10 @@ import (
 
 	"github.com/VENI-VIDIVICI/gohub/pkg/config"
 	"github.com/VENI-VIDIVICI/gohub/pkg/database"
+	"github.com/VENI-VIDIVICI/gohub/pkg/logger"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 // SetupDB 初始化数据库和 ORM
@@ -42,7 +42,7 @@ func SetupDB() {
 	}
 
 	// 连接数据库，并设置 GORM 的日志模式
-	database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
+	// database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
 
 	// 设置最大连接数
 	database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
@@ -52,4 +52,5 @@ func SetupDB() {
 	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
 
 	database.DB.AutoMigrate(&user.User{})
+	database.Connect(dbConfig, logger.NewGormLogger())
 }
