@@ -23,6 +23,7 @@ func main() {
 	// 初始化 Gin 实例
 	router := gin.New()
 	bootstrap.SetupRoute(router)
+	gin.SetMode(gin.ReleaseMode)
 	// 初始化 DB
 	// 运行服务
 	err := router.Run(":" + config.Get("app.port"))

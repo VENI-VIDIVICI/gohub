@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/VENI-VIDIVICI/gohub/app/http/middlewares"
 	"github.com/VENI-VIDIVICI/gohub/routers"
 	"github.com/gin-gonic/gin"
 )
@@ -18,8 +19,7 @@ func SetupRoute(router *gin.Engine) {
 }
 
 func registerGuard(router *gin.Engine) {
-	router.Use(gin.Recovery(),
-		gin.Logger())
+	router.Use(middlewares.Recovery(), middlewares.Logger())
 }
 
 func setup404Handler(router *gin.Engine) {

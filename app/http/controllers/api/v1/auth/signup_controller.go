@@ -15,7 +15,7 @@ type SignupController struct {
 
 func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	request := requests.SignupPhoneExistRequest{}
-	ok := requests.Validate(c, request, requests.ValidateSignupPhoneExist)
+	ok := requests.Validate(c, &request, requests.ValidateSignupPhoneExist)
 	if ok == false {
 		return
 	}
@@ -27,7 +27,7 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 func (sc *SignupController) IsEmailExist(c *gin.Context) {
 	request := requests.SignupEmailExistRequest{}
 
-	ok := requests.Validate(c, request, requests.ValidateSignupEmailExist)
+	ok := requests.Validate(c, &request, requests.ValidateSignupEmailExist)
 	if ok == false {
 		return
 	}
