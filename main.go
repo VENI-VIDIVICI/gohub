@@ -23,6 +23,7 @@ func main() {
 	// 初始化 Gin 实例
 	router := gin.New()
 	bootstrap.SetupRoute(router)
+	// bootstrap.SetupRedis()
 	gin.SetMode(gin.ReleaseMode)
 	// 初始化 DB
 	// 运行服务

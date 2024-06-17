@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/VENI-VIDIVICI/gohub/app/models/user"
 
@@ -45,11 +44,11 @@ func SetupDB() {
 	// database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
 
 	// 设置最大连接数
-	database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
+	// database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
 	// 设置最大空闲连接数
-	database.SQLDB.SetMaxIdleConns(config.GetInt("database.mysql.max_idle_connections"))
+	// database.SQLDB.SetMaxIdleConns(config.GetInt("database.mysql.max_idle_connections"))
 	// 设置每个链接的过期时间
-	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
+	// database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
 
 	database.DB.AutoMigrate(&user.User{})
 	database.Connect(dbConfig, logger.NewGormLogger())
