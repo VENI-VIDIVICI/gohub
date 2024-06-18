@@ -20,7 +20,8 @@ func (src *StoreRedisCliient) Set(key string, value string) error {
 	if app.IsLocal() {
 		ExpireTime = time.Minute * time.Duration(config.GetInt64("captcha.debug_expire_time"))
 	}
-	if ok := src.RedisClient.Set(fmt.Sprint("%v%v", src.KeyPrefix, key), value, ExpireTime); ok {
+	fmt.Println(value)
+	if ok := src.RedisClient.Set(fmt.Sprint("%v%v", src.KeyPrefix, key), value, ExpireTime); !ok {
 		return errors.New("无法存储图片验证码答案")
 	}
 	return nil
