@@ -23,5 +23,5 @@ func (useModel *User) Create() {
 }
 
 func (useModel *User) ComparePassword(_password string) bool {
-	return hash.BcryptCheck(_password, useModel.PassWord)
+	return hash.BcryptCheck(useModel.PassWord, _password)
 }

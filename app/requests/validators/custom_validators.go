@@ -15,3 +15,7 @@ func ValidatePasswordConfirm(password, passwordConfirm string, errs map[string][
 // 	}
 // 	return errs
 // }
+
+func ValidateCaptcha(id string, answer string, errs map[string][]string) map[string][]string {
+	return errs
+}
