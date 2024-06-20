@@ -4,6 +4,7 @@ import (
 	v1 "github.com/VENI-VIDIVICI/gohub/app/http/controllers/api/v1"
 	"github.com/VENI-VIDIVICI/gohub/app/models/user"
 	"github.com/VENI-VIDIVICI/gohub/app/requests"
+	"github.com/VENI-VIDIVICI/gohub/pkg/jwt"
 	"github.com/VENI-VIDIVICI/gohub/pkg/response"
 	"github.com/gin-gonic/gin"
 )
@@ -51,8 +52,10 @@ func (sc *SignupController) SignupUsing(c *gin.Context) {
 	_user.Create()
 
 	if _user.ID > 0 {
+		token := jwt.NewJwt().IssueToken(_user.GetStringID(), _user.Name)
 		response.CreatedJSON(c, gin.H{
-			"data": _user,
+			"data":  _user,
+			"token": token,
 		})
 	} else {
 		response.Abort500(c, "创建用户失败,请稍后尝试~")
