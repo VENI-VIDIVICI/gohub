@@ -26,8 +26,10 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		// 判断手机是否已注册
 		authGroup.POST("/signup/phone/exist", suc.IsPhoneExist)
 		authGroup.POST("/signup/email/exist", suc.IsEmailExist)
-
+		// SignupUsing
+		authGroup.POST("/signup/using", suc.SignupUsing)
 		// 获取验证码
 		authGroup.POST("/verify-codes/captcha", verfify.ShowCaptcha)
+
 	}
 }
