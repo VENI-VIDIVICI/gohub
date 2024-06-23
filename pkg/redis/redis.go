@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/VENI-VIDIVICI/gohub/pkg/logger"
-	redis "github.com/go-redis/redis/v8"
+	redis "github.com/redis/go-redis/v9"
 )
 
 type RedisClient struct {

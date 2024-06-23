@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/VENI-VIDIVICI/gohub/app/http/controllers/api/v1/auth"
+	"github.com/VENI-VIDIVICI/gohub/app/http/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 
 	// 测试一个 v1 的路由组，我们所有的 v1 版本的路由都将存放到这里
 	v1 := r.Group("/v1")
+	v1.Use(middlewares.LimitIP("200-H"))
 	{
 		// 注册一个路由
 		v1.GET("/", func(c *gin.Context) {
@@ -21,6 +23,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			})
 		})
 		authGroup := v1.Group("/auth")
+		authGroup.Use(middlewares.LimitIP("1000-H"))
 		suc := new(auth.SignupController)
 		verfify := new(auth.VerifyCodeController)
 		lgc := new(auth.LoginController)
