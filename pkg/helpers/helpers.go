@@ -25,3 +25,10 @@ func Empty(val interface{}) bool {
 func MicrosecondsStr(elapsed time.Duration) string {
 	return fmt.Sprintf("%.3fms", float64(elapsed.Nanoseconds())/1e6)
 }
+
+func FirstElement(args []string) string {
+	if len(args) > 0 {
+		return args[0]
+	}
+	return ""
+}
